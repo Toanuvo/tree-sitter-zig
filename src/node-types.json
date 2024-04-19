@@ -394,21 +394,6 @@
     }
   },
   {
-    "type": "CHAR_LITERAL",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "EscapeSequence",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "CallConv",
     "named": true,
     "fields": {},
@@ -438,6 +423,25 @@
       "types": [
         {
           "type": "Block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ComptimeStatement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "BlockExpr",
+          "named": true
+        },
+        {
+          "type": "VarDeclExprStatement",
           "named": true
         }
       ]
@@ -517,10 +521,6 @@
       "required": true,
       "types": [
         {
-          "type": "ArrayTypeStart",
-          "named": true
-        },
-        {
           "type": "ByteAlign",
           "named": true
         },
@@ -564,11 +564,11 @@
           "named": true
         },
         {
-          "type": "STRINGLITERALSINGLE",
+          "type": "GlobalVarDecl",
           "named": true
         },
         {
-          "type": "VarDecl",
+          "type": "STRINGLITERALSINGLE",
           "named": true
         }
       ]
@@ -578,7 +578,7 @@
     "type": "ErrorSetDecl",
     "named": true,
     "fields": {
-      "field_constant": {
+      "error_decl": {
         "multiple": true,
         "required": false,
         "types": [
@@ -605,7 +605,7 @@
     "named": true,
     "fields": {
       "exception": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -633,11 +633,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "EscapeSequence",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "Expr",
@@ -699,11 +694,6 @@
     }
   },
   {
-    "type": "FLOAT",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "FieldInit",
     "named": true,
     "fields": {
@@ -724,42 +714,6 @@
       "types": [
         {
           "type": "Expr",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "FieldOrFnCall",
-    "named": true,
-    "fields": {
-      "field_access": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "IDENTIFIER",
-            "named": true
-          }
-        ]
-      },
-      "function_call": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "IDENTIFIER",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "FnCallArguments",
           "named": true
         }
       ]
@@ -971,9 +925,23 @@
     }
   },
   {
-    "type": "FormatSequence",
+    "type": "GlobalVarDecl",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "Expr",
+          "named": true
+        },
+        {
+          "type": "VarDeclProto",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "GroupedExpr",
@@ -1004,11 +972,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "INTEGER",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "IfExpr",
@@ -1443,17 +1406,22 @@
   {
     "type": "STRINGLITERALSINGLE",
     "named": true,
+    "fields": {}
+  },
+  {
+    "type": "SingleAssignExpr",
+    "named": true,
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "EscapeSequence",
+          "type": "AssignOp",
           "named": true
         },
         {
-          "type": "FormatSequence",
+          "type": "Expr",
           "named": true
         }
       ]
@@ -1483,11 +1451,11 @@
       "required": true,
       "types": [
         {
-          "type": "AssignExpr",
+          "type": "BlockExprStatement",
           "named": true
         },
         {
-          "type": "BlockExprStatement",
+          "type": "ComptimeStatement",
           "named": true
         },
         {
@@ -1507,7 +1475,7 @@
           "named": true
         },
         {
-          "type": "VarDecl",
+          "type": "VarDeclExprStatement",
           "named": true
         }
       ]
@@ -1526,16 +1494,6 @@
             "named": true
           }
         ]
-      },
-      "variable_type_function": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "IDENTIFIER",
-            "named": true
-          }
-        ]
       }
     },
     "children": {
@@ -1544,10 +1502,6 @@
       "types": [
         {
           "type": "BUILTINIDENTIFIER",
-          "named": true
-        },
-        {
-          "type": "BuildinTypeExpr",
           "named": true
         },
         {
@@ -1571,10 +1525,6 @@
           "named": true
         },
         {
-          "type": "FieldOrFnCall",
-          "named": true
-        },
-        {
           "type": "FnCallArguments",
           "named": true
         },
@@ -1584,6 +1534,10 @@
         },
         {
           "type": "GroupedExpr",
+          "named": true
+        },
+        {
+          "type": "IDENTIFIER",
           "named": true
         },
         {
@@ -1702,11 +1656,11 @@
       "required": true,
       "types": [
         {
-          "type": "AssignExpr",
+          "type": "PtrIndexPayload",
           "named": true
         },
         {
-          "type": "PtrIndexPayload",
+          "type": "SingleAssignExpr",
           "named": true
         },
         {
@@ -1770,7 +1724,30 @@
     }
   },
   {
-    "type": "VarDecl",
+    "type": "VarDeclExprStatement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "AssignOp",
+          "named": true
+        },
+        {
+          "type": "Expr",
+          "named": true
+        },
+        {
+          "type": "VarDeclProto",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "VarDeclProto",
     "named": true,
     "fields": {
       "variable_type_function": {
@@ -1798,10 +1775,6 @@
         },
         {
           "type": "ErrorUnionExpr",
-          "named": true
-        },
-        {
-          "type": "Expr",
           "named": true
         },
         {
@@ -1998,10 +1971,6 @@
     "named": false
   },
   {
-    "type": "'",
-    "named": false
-  },
-  {
     "type": "(",
     "named": false
   },
@@ -2194,7 +2163,15 @@
     "named": false
   },
   {
-    "type": "BuildinTypeExpr",
+    "type": "CHAR_LITERAL",
+    "named": true
+  },
+  {
+    "type": "FLOAT",
+    "named": true
+  },
+  {
+    "type": "INTEGER",
     "named": true
   },
   {
@@ -2326,10 +2303,6 @@
     "named": false
   },
   {
-    "type": "false",
-    "named": false
-  },
-  {
     "type": "fn",
     "named": false
   },
@@ -2363,10 +2336,6 @@
   },
   {
     "type": "nosuspend",
-    "named": false
-  },
-  {
-    "type": "null",
     "named": false
   },
   {
@@ -2418,15 +2387,7 @@
     "named": false
   },
   {
-    "type": "true",
-    "named": false
-  },
-  {
     "type": "try",
-    "named": false
-  },
-  {
-    "type": "undefined",
     "named": false
   },
   {

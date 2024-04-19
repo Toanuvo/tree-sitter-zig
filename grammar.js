@@ -75,33 +75,6 @@ const AMPERSAND = "&",
     multiply: 10,
     prefix: 11,
   },
-  buildin_type = [
-    "bool",
-    "f16",
-    "f32",
-    "f64",
-    "f128",
-    "void",
-    "type",
-    "anyerror",
-    "anyframe",
-    "anyopaque",
-    "noreturn",
-    "isize",
-    "usize",
-    "comptime_int",
-    "comptime_float",
-    "c_short",
-    "c_ushort",
-    "c_int",
-    "c_uint",
-    "c_long",
-    "c_ulong",
-    "c_longlong",
-    "c_ulonglong",
-    "c_longdouble",
-    /(i|u)[0-9]+/,
-  ],
   bin = /[01]/,
   bin_ = seq(optional("_"), bin),
   oct = /[0-7]/,
@@ -117,23 +90,40 @@ const AMPERSAND = "&",
   unescaped_string_fragment = token.immediate(prec(1, /[^"\\\{\}]+/)),
   unescaped_char_fragment = token.immediate(prec(1, /[^'\\]/));
 
+const EscapeSequence = choice(
+  seq("\\", choice(/x[0-9a-fA-f]{2}/, /u\{[0-9a-fA-F]+\}/, /[nr\\t'"]/)),
+  "{{",
+  "}}",
+);
+
+const FormatSequence = seq(
+  "{",
+  /[0-9]*/,
+  optional(choice(/[xXsedbocu*!?]{1}/, "any")),
+  optional(seq(":", optional(/[^"\\\{\}]{1}[<^>]{1}[0-9]+/), /.{0,1}[0-9]*/)),
+  "}",
+);
+
 module.exports = grammar({
   name: "zig",
 
-  externals: (_) => [],
+  word: ($) => $._PlainIdent,
   inline: ($) => [$.Variable],
   extras: ($) => [/\s/, $.line_comment],
-  conflicts: ($) => [[$.LoopExpr], [$.LoopTypeExpr]],
+  conflicts: ($) => [[$.LoopExpr], [$.LoopTypeExpr], [$.SuffixExpr]],
   rules: {
     source_file: ($) =>
       seq(optional($.container_doc_comment), optional($._ContainerMembers)),
 
     // *** Top level ***
     _ContainerMembers: ($) =>
-      repeat1(
-        choice(
-          $._ContainerDeclarations,
-          seq($.ContainerField, optional(COMMA)),
+      choice(
+        repeat1($._ContainerDeclarations),
+        seq(
+          repeat($._ContainerDeclarations),
+          $.ContainerField,
+          repeat(seq(COMMA, $.ContainerField)),
+          optional(seq(COMMA, repeat($._ContainerDeclarations))),
         ),
       ),
 
@@ -159,14 +149,14 @@ module.exports = grammar({
         seq(
           optional(
             choice(
-              keyword("export", $),
               seq(keyword("extern", $), optional($.STRINGLITERALSINGLE)),
-              keyword(choice("inline", "noinline"), $),
+              keyword(choice("export", "inline", "noinline"), $),
             ),
           ),
           $.FnProto,
           choice(SEMICOLON, $.Block),
         ),
+
         seq(
           optional(
             choice(
@@ -175,10 +165,13 @@ module.exports = grammar({
             ),
           ),
           optional(keyword("threadlocal", $)),
-          $.VarDecl,
+          $.GlobalVarDecl,
         ),
         seq(keyword("usingnamespace", $), $.Expr, SEMICOLON),
       ),
+
+    GlobalVarDecl: ($) =>
+      seq($.VarDeclProto, optional(seq(EQUAL, $.Expr)), SEMICOLON),
 
     FnProto: ($) =>
       seq(
@@ -193,7 +186,7 @@ module.exports = grammar({
         $._TypeExpr,
       ),
 
-    VarDecl: ($) =>
+    VarDeclProto: ($) =>
       seq(
         keyword(choice("const", "var"), $),
         field("variable_type_function", $.IDENTIFIER),
@@ -201,8 +194,6 @@ module.exports = grammar({
         optional($.ByteAlign),
         optional($.AddrSpace),
         optional($.LinkSection),
-        optional(seq(EQUAL, $.Expr)),
-        SEMICOLON,
       ),
 
     ContainerField: ($) =>
@@ -211,19 +202,8 @@ module.exports = grammar({
         seq(
           optional($.doc_comment),
           optional(keyword("comptime", $)),
-          choice(
-            seq(
-              field(
-                "field_member",
-                choice($.IDENTIFIER, alias($.BuildinTypeExpr, $.IDENTIFIER)),
-              ),
-              COLON,
-              optional($.ArrayTypeStart),
-              $._TypeExpr,
-            ),
-            // NOTE: $._TypeExpr already include fn
-            $._TypeExpr,
-          ),
+          optional(seq(field("field_member", $.IDENTIFIER), COLON)),
+          $._TypeExpr,
           optional($.ByteAlign),
           optional(seq(EQUAL, $.Expr)),
         ),
@@ -235,10 +215,10 @@ module.exports = grammar({
       prec(
         PREC.curly,
         choice(
-          seq(optional(keyword("comptime", $)), $.VarDecl),
+          seq("comptime", $.ComptimeStatement),
           seq(
             choice(
-              keyword(choice("comptime", "nosuspend", "defer", "suspend"), $),
+              keyword(choice("nosuspend", "defer", "suspend"), $),
               seq(keyword("errdefer", $), optional($.Payload)),
             ),
             $.BlockExprStatement,
@@ -246,9 +226,11 @@ module.exports = grammar({
           $.IfStatement,
           $.LabeledStatement,
           $.SwitchExpr,
-          seq($.AssignExpr, SEMICOLON),
+          $.VarDeclExprStatement,
         ),
       ),
+
+    ComptimeStatement: ($) => choice($.BlockExpr, $.VarDeclExprStatement),
 
     IfStatement: ($) =>
       choice(
@@ -291,9 +273,47 @@ module.exports = grammar({
 
     BlockExpr: ($) => prec(PREC.curly, seq(optional($.BlockLabel), $.Block)),
 
+    VarDeclExprStatement: ($) =>
+      choice(
+        seq(
+          $.VarDeclProto,
+          repeat(seq(COMMA, choice($.VarDeclProto, $.Expr))),
+          EQUAL,
+          $.Expr,
+          SEMICOLON,
+        ),
+        seq(
+          $.Expr,
+          optional(
+            choice(
+              seq($.AssignOp, $.Expr),
+              seq(
+                repeat1(seq(COMMA, choice($.VarDeclProto, $.Expr))),
+                EQUAL,
+                $.Expr,
+              ),
+            ),
+          ),
+          SEMICOLON,
+        ),
+      ),
+
     // *** Expression Level ***
 
     AssignExpr: ($) =>
+      prec(
+        PREC.assign,
+        seq(
+          $.Expr,
+          optional(
+            choice(
+              seq($.AssignOp, $.Expr),
+              seq(repeat1(seq(COMMA, $.Expr)), EQUAL, $.Expr),
+            ),
+          ),
+        ),
+      ),
+    SingleAssignExpr: ($) =>
       prec(PREC.assign, seq($.Expr, optional(seq($.AssignOp, $.Expr)))),
 
     Expr: ($) => choice($.BinaryExpr, $.UnaryExpr, $._PrimaryExpr),
@@ -382,59 +402,52 @@ module.exports = grammar({
       prec.right(
         seq(
           $.SuffixExpr,
-          optional(seq(field("exception", EXCLAMATIONMARK), $._TypeExpr)),
+          repeat(seq(field("exception", EXCLAMATIONMARK), $._TypeExpr)),
         ),
       ),
 
     SuffixExpr: ($) =>
       // INFO: solve #1 issue
       prec.right(
-        seq(
-          optional(keyword("async", $)),
-          choice(
-            $._PrimaryTypeExpr,
-            field("variable_type_function", $.IDENTIFIER),
-          ),
-          repeat(choice($.SuffixOp, $.FieldOrFnCall, $.FnCallArguments)),
-        ),
-      ),
-
-    FieldOrFnCall: ($) =>
-      prec.right(
         choice(
-          seq(DOT, field("field_access", $.IDENTIFIER)),
-          seq(DOT, field("function_call", $.IDENTIFIER), $.FnCallArguments),
+          seq(
+            optional("async"),
+            $._PrimaryTypeExpr,
+            repeat($.SuffixOp),
+            $.FnCallArguments,
+          ),
+          seq(
+            $._PrimaryTypeExpr,
+            repeat(choice($.SuffixOp, $.FnCallArguments)),
+          ),
         ),
       ),
 
     _PrimaryTypeExpr: ($) =>
-      choice(
-        seq($.BUILTINIDENTIFIER, $.FnCallArguments),
-        $.CHAR_LITERAL,
-        $.ContainerDecl,
-        seq(DOT, field("field_constant", $.IDENTIFIER)),
-        seq(DOT, $.InitList),
-        $.ErrorSetDecl,
-        $.FLOAT,
-        $.FnProto,
-        $.GroupedExpr,
-        $.LabeledTypeExpr,
-        $.IfTypeExpr,
-        $.INTEGER,
-        seq(keyword("comptime", $), $._TypeExpr),
-        seq(keyword("error", $), DOT, field("field_constant", $.IDENTIFIER)),
-        keyword("false", $),
-        keyword("null", $),
-        keyword("anyframe", $),
-        keyword("true", $),
-        keyword("undefined", $),
-        keyword("unreachable", $),
-        $._STRINGLITERAL,
-        $.SwitchExpr,
-        $.BuildinTypeExpr,
+      prec.right(
+        choice(
+          seq($.BUILTINIDENTIFIER, $.FnCallArguments),
+          $.CHAR_LITERAL,
+          $.ContainerDecl,
+          seq(DOT, field("field_constant", $.IDENTIFIER)),
+          seq(DOT, $.InitList),
+          $.ErrorSetDecl,
+          $.FLOAT,
+          $.FnProto,
+          $.GroupedExpr,
+          $.LabeledTypeExpr,
+          $.IDENTIFIER,
+          $.IfTypeExpr,
+          $.INTEGER,
+          seq(keyword("comptime", $), $._TypeExpr),
+          seq(keyword("error", $), DOT, field("field_constant", $.IDENTIFIER)),
+          keyword("anyframe", $),
+          keyword("unreachable", $),
+          $._STRINGLITERAL,
+          $.SwitchExpr,
+        ),
       ),
 
-    BuildinTypeExpr: (_) => token(choice(...buildin_type)),
     ContainerDecl: ($) =>
       seq(
         optional(keyword(choice("extern", "packed"), $)),
@@ -447,7 +460,7 @@ module.exports = grammar({
         LBRACE,
         sepBy(
           COMMA,
-          seq(optional($.doc_comment), field("field_constant", $.IDENTIFIER)),
+          seq(optional($.doc_comment), field("error_decl", $.IDENTIFIER)),
         ),
         RBRACE,
       ),
@@ -513,7 +526,7 @@ module.exports = grammar({
         RBRACKET,
         $._STRINGLITERAL,
         LPAREN,
-        choice(seq("->", $._TypeExpr), $.Variable),
+        choice(seq(MINUSRARROW, $._TypeExpr), $.Variable),
         RPAREN,
       ),
 
@@ -555,15 +568,7 @@ module.exports = grammar({
         seq(
           optional($.doc_comment),
           optional(keyword(choice("noalias", "comptime"), $)),
-          optional(
-            seq(
-              field(
-                "parameter",
-                choice($.IDENTIFIER, alias($.BuildinTypeExpr, $.IDENTIFIER)),
-              ),
-              COLON,
-            ),
-          ),
+          optional(seq(field("parameter", $.IDENTIFIER), COLON)),
           $.ParamType,
         ),
         DOT3,
@@ -618,7 +623,7 @@ module.exports = grammar({
         $.SwitchCase,
         EQUALRARROW,
         optional($.PtrIndexPayload),
-        $.AssignExpr,
+        $.SingleAssignExpr,
       ),
 
     SwitchCase: ($) => choice(sepBy1(COMMA, $.SwitchItem), keyword("else", $)),
@@ -765,6 +770,7 @@ module.exports = grammar({
           optional(seq(DOT2, optional($._SentinelTerminatedExpr))),
           RBRACKET,
         ),
+        seq(DOT, $.IDENTIFIER),
         DOTASTERISK,
         DOTQUESTIONMARK,
       ),
@@ -808,8 +814,8 @@ module.exports = grammar({
 
     ContainerDeclType: ($) =>
       choice(
-        seq(keyword("struct", $), optional(seq(LPAREN, $.Expr, RPAREN))),
         keyword("opaque", $),
+        seq(keyword("struct", $), optional(seq(LPAREN, $.Expr, RPAREN))),
         seq(keyword("enum", $), optional(seq(LPAREN, $.Expr, RPAREN))),
         seq(
           keyword("union", $),
@@ -839,42 +845,26 @@ module.exports = grammar({
     line_comment: (_) => token(seq("//", /.*/)),
 
     CHAR_LITERAL: ($) =>
-      seq("'", choice(unescaped_char_fragment, $.EscapeSequence), "'"),
+      token(seq("'", choice(unescaped_char_fragment, EscapeSequence), "'")),
 
     FLOAT: (_) =>
-      choice(
-        token(
+      token(
+        choice(
           seq("0x", hex_int, ".", hex_int, optional(seq(/[pP][-+]?/, dec_int))),
+          seq(dec_int, ".", dec_int, optional(seq(/[eE][-+]?/, dec_int))),
+          seq("0x", hex_int, /[pP][-+]?/, dec_int),
+          seq(dec_int, /[eE][-+]?/, dec_int),
         ),
-        token(seq(dec_int, ".", dec_int, optional(seq(/[eE][-+]?/, dec_int)))),
-        token(seq("0x", hex_int, /[pP][-+]?/, dec_int)),
-        token(seq(dec_int, /[eE][-+]?/, dec_int)),
       ),
 
     INTEGER: (_) =>
-      choice(
-        token(seq("0b", bin_int)),
-        token(seq("0o", oct_int)),
-        token(seq("0x", hex_int)),
-        token(dec_int),
-      ),
-
-    EscapeSequence: (_) =>
-      choice(
-        seq("\\", choice(/x[0-9a-fA-f]{2}/, /u\{[0-9a-fA-F]+\}/, /[nr\\t'"]/)),
-        "{{",
-        "}}",
-      ),
-
-    FormatSequence: (_) =>
-      seq(
-        "{",
-        /[0-9]*/,
-        optional(choice(/[xXsedbocu*!?]{1}/, "any")),
-        optional(
-          seq(":", optional(/[^"\\\{\}]{1}[<^>]{1}[0-9]+/), /.{0,1}[0-9]*/),
+      token(
+        choice(
+          seq("0b", bin_int),
+          seq("0o", oct_int),
+          seq("0x", hex_int),
+          dec_int,
         ),
-        "}",
       ),
 
     STRINGLITERALSINGLE: ($) =>
@@ -883,8 +873,8 @@ module.exports = grammar({
         repeat(
           choice(
             unescaped_string_fragment,
-            $.EscapeSequence,
-            $.FormatSequence,
+            EscapeSequence,
+            FormatSequence,
             token.immediate("{"),
             token.immediate("}"),
           ),
@@ -899,10 +889,10 @@ module.exports = grammar({
 
     Variable: ($) => field("variable", $.IDENTIFIER),
 
-    IDENTIFIER: ($) =>
-      choice(/[A-Za-z_][A-Za-z0-9_]*/, seq("@", $.STRINGLITERALSINGLE)),
+    IDENTIFIER: ($) => choice($._PlainIdent, seq("@", $.STRINGLITERALSINGLE)),
+    _PlainIdent: (_) => /[A-Za-z_][A-Za-z0-9_]*/,
 
-    BUILTINIDENTIFIER: (_) => seq("@", /[A-Za-z_][A-Za-z0-9_]*/),
+    BUILTINIDENTIFIER: ($) => seq("@", $._PlainIdent),
   },
 });
 
