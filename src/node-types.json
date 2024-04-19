@@ -9,51 +9,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
-      "required": false,
+      "multiple": false,
+      "required": true,
       "types": [
         {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
-          "type": "ErrorUnionExpr",
-          "named": true
-        },
-        {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
+          "type": "Expr",
           "named": true
         }
       ]
@@ -65,54 +25,14 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
-          "type": "ErrorUnionExpr",
+          "type": "Expr",
           "named": true
         },
         {
           "type": "IDENTIFIER",
-          "named": true
-        },
-        {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
           "named": true
         }
       ]
@@ -143,54 +63,14 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
-        {
-          "type": "AsmExpr",
-          "named": true
-        },
         {
           "type": "AsmOutput",
           "named": true
         },
         {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
-          "type": "ErrorUnionExpr",
-          "named": true
-        },
-        {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
+          "type": "Expr",
           "named": true
         }
       ]
@@ -235,35 +115,7 @@
       "required": true,
       "types": [
         {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
-          "type": "ErrorUnionExpr",
-          "named": true
-        },
-        {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
+          "type": "Expr",
           "named": true
         },
         {
@@ -271,19 +123,7 @@
           "named": true
         },
         {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
-          "named": true
-        },
-        {
           "type": "STRINGLITERALSINGLE",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
           "named": true
         }
       ]
@@ -352,54 +192,14 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
-        {
-          "type": "AsmExpr",
-          "named": true
-        },
         {
           "type": "AssignOp",
           "named": true
         },
         {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
-          "type": "ErrorUnionExpr",
-          "named": true
-        },
-        {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
+          "type": "Expr",
           "named": true
         }
       ]
@@ -420,76 +220,12 @@
     "named": true,
     "fields": {
       "left": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "AsmExpr",
+            "type": "Expr",
             "named": true
-          },
-          {
-            "type": "BinaryExpr",
-            "named": true
-          },
-          {
-            "type": "Block",
-            "named": true
-          },
-          {
-            "type": "BlockLabel",
-            "named": true
-          },
-          {
-            "type": "BreakLabel",
-            "named": true
-          },
-          {
-            "type": "ErrorUnionExpr",
-            "named": true
-          },
-          {
-            "type": "IfExpr",
-            "named": true
-          },
-          {
-            "type": "InitList",
-            "named": true
-          },
-          {
-            "type": "LoopExpr",
-            "named": true
-          },
-          {
-            "type": "PrefixTypeOp",
-            "named": true
-          },
-          {
-            "type": "UnaryExpr",
-            "named": true
-          },
-          {
-            "type": "break",
-            "named": false
-          },
-          {
-            "type": "comptime",
-            "named": false
-          },
-          {
-            "type": "continue",
-            "named": false
-          },
-          {
-            "type": "nosuspend",
-            "named": false
-          },
-          {
-            "type": "resume",
-            "named": false
-          },
-          {
-            "type": "return",
-            "named": false
           }
         ]
       },
@@ -528,76 +264,12 @@
         ]
       },
       "right": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "AsmExpr",
+            "type": "Expr",
             "named": true
-          },
-          {
-            "type": "BinaryExpr",
-            "named": true
-          },
-          {
-            "type": "Block",
-            "named": true
-          },
-          {
-            "type": "BlockLabel",
-            "named": true
-          },
-          {
-            "type": "BreakLabel",
-            "named": true
-          },
-          {
-            "type": "ErrorUnionExpr",
-            "named": true
-          },
-          {
-            "type": "IfExpr",
-            "named": true
-          },
-          {
-            "type": "InitList",
-            "named": true
-          },
-          {
-            "type": "LoopExpr",
-            "named": true
-          },
-          {
-            "type": "PrefixTypeOp",
-            "named": true
-          },
-          {
-            "type": "UnaryExpr",
-            "named": true
-          },
-          {
-            "type": "break",
-            "named": false
-          },
-          {
-            "type": "comptime",
-            "named": false
-          },
-          {
-            "type": "continue",
-            "named": false
-          },
-          {
-            "type": "nosuspend",
-            "named": false
-          },
-          {
-            "type": "resume",
-            "named": false
-          },
-          {
-            "type": "return",
-            "named": false
           }
         ]
       }
@@ -711,51 +383,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
-      "required": false,
+      "multiple": false,
+      "required": true,
       "types": [
         {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
-          "type": "ErrorUnionExpr",
-          "named": true
-        },
-        {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
+          "type": "Expr",
           "named": true
         }
       ]
@@ -781,51 +413,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
-      "required": false,
+      "multiple": false,
+      "required": true,
       "types": [
         {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
-          "type": "ErrorUnionExpr",
-          "named": true
-        },
-        {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
+          "type": "Expr",
           "named": true
         }
       ]
@@ -895,51 +487,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "types": [
         {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
-          "type": "ErrorUnionExpr",
-          "named": true
-        },
-        {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
+          "type": "Expr",
           "named": true
         }
       ]
@@ -969,26 +521,6 @@
           "named": true
         },
         {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
           "type": "ByteAlign",
           "named": true
         },
@@ -997,23 +529,11 @@
           "named": true
         },
         {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
+          "type": "Expr",
           "named": true
         },
         {
           "type": "PrefixTypeOp",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
           "named": true
         },
         {
@@ -1029,30 +549,14 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
-        {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
         {
           "type": "Block",
           "named": true
         },
         {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
-          "type": "ErrorUnionExpr",
+          "type": "Expr",
           "named": true
         },
         {
@@ -1060,27 +564,7 @@
           "named": true
         },
         {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
-          "named": true
-        },
-        {
           "type": "STRINGLITERALSINGLE",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
           "named": true
         },
         {
@@ -1156,25 +640,9 @@
     "fields": {}
   },
   {
-    "type": "FLOAT",
+    "type": "Expr",
     "named": true,
-    "fields": {}
-  },
-  {
-    "type": "FieldInit",
-    "named": true,
-    "fields": {
-      "field_member": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "IDENTIFIER",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
       "required": false,
@@ -1204,6 +672,10 @@
           "named": true
         },
         {
+          "type": "Expr",
+          "named": true
+        },
+        {
           "type": "IfExpr",
           "named": true
         },
@@ -1221,6 +693,37 @@
         },
         {
           "type": "UnaryExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "FLOAT",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "FieldInit",
+    "named": true,
+    "fields": {
+      "field_member": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "IDENTIFIER",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "Expr",
           "named": true
         }
       ]
@@ -1271,47 +774,7 @@
       "required": false,
       "types": [
         {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
-          "type": "ErrorUnionExpr",
-          "named": true
-        },
-        {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
+          "type": "Expr",
           "named": true
         }
       ]
@@ -1401,27 +864,7 @@
       "required": true,
       "types": [
         {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
-          "type": "ErrorUnionExpr",
+          "type": "Expr",
           "named": true
         },
         {
@@ -1429,27 +872,7 @@
           "named": true
         },
         {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
           "type": "Payload",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
           "named": true
         }
       ]
@@ -1461,50 +884,10 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
-          "type": "ErrorUnionExpr",
-          "named": true
-        },
-        {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
+          "type": "Expr",
           "named": true
         }
       ]
@@ -1597,51 +980,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
-      "required": false,
+      "multiple": false,
+      "required": true,
       "types": [
         {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
-          "type": "ErrorUnionExpr",
-          "named": true
-        },
-        {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
+          "type": "Expr",
           "named": true
         }
       ]
@@ -1676,31 +1019,7 @@
       "required": true,
       "types": [
         {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
-          "type": "ErrorUnionExpr",
-          "named": true
-        },
-        {
-          "type": "IfExpr",
+          "type": "Expr",
           "named": true
         },
         {
@@ -1708,23 +1027,7 @@
           "named": true
         },
         {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
           "type": "Payload",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
           "named": true
         }
       ]
@@ -1736,54 +1039,14 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
-          "type": "ErrorUnionExpr",
-          "named": true
-        },
-        {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
+          "type": "Expr",
           "named": true
         },
         {
           "type": "PtrPayload",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
           "named": true
         }
       ]
@@ -1856,51 +1119,11 @@
       "required": false,
       "types": [
         {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
-          "type": "ErrorUnionExpr",
+          "type": "Expr",
           "named": true
         },
         {
           "type": "FieldInit",
-          "named": true
-        },
-        {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
           "named": true
         }
       ]
@@ -1962,51 +1185,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
-      "required": false,
+      "multiple": false,
+      "required": true,
       "types": [
         {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
-          "type": "ErrorUnionExpr",
-          "named": true
-        },
-        {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
+          "type": "Expr",
           "named": true
         }
       ]
@@ -2176,47 +1359,11 @@
           "named": true
         },
         {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
           "type": "ByteAlign",
           "named": true
         },
         {
-          "type": "ErrorUnionExpr",
-          "named": true
-        },
-        {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
+          "type": "Expr",
           "named": true
         },
         {
@@ -2225,10 +1372,6 @@
         },
         {
           "type": "SliceTypeStart",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
           "named": true
         }
       ]
@@ -2287,51 +1430,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "types": [
         {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
-          "type": "ErrorUnionExpr",
-          "named": true
-        },
-        {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
+          "type": "Expr",
           "named": true
         }
       ]
@@ -2361,51 +1464,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "types": [
         {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
-          "type": "ErrorUnionExpr",
-          "named": true
-        },
-        {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
+          "type": "Expr",
           "named": true
         }
       ]
@@ -2571,51 +1634,11 @@
       "required": false,
       "types": [
         {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
-          "type": "ErrorUnionExpr",
+          "type": "Expr",
           "named": true
         },
         {
           "type": "IDENTIFIER",
-          "named": true
-        },
-        {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
           "named": true
         }
       ]
@@ -2642,54 +1665,14 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
-          "type": "ErrorUnionExpr",
-          "named": true
-        },
-        {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
+          "type": "Expr",
           "named": true
         },
         {
           "type": "SwitchProng",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
           "named": true
         }
       ]
@@ -2701,50 +1684,10 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
-          "type": "ErrorUnionExpr",
-          "named": true
-        },
-        {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
+          "type": "Expr",
           "named": true
         }
       ]
@@ -2805,76 +1748,12 @@
     "named": true,
     "fields": {
       "left": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "AsmExpr",
+            "type": "Expr",
             "named": true
-          },
-          {
-            "type": "BinaryExpr",
-            "named": true
-          },
-          {
-            "type": "Block",
-            "named": true
-          },
-          {
-            "type": "BlockLabel",
-            "named": true
-          },
-          {
-            "type": "BreakLabel",
-            "named": true
-          },
-          {
-            "type": "ErrorUnionExpr",
-            "named": true
-          },
-          {
-            "type": "IfExpr",
-            "named": true
-          },
-          {
-            "type": "InitList",
-            "named": true
-          },
-          {
-            "type": "LoopExpr",
-            "named": true
-          },
-          {
-            "type": "PrefixTypeOp",
-            "named": true
-          },
-          {
-            "type": "UnaryExpr",
-            "named": true
-          },
-          {
-            "type": "break",
-            "named": false
-          },
-          {
-            "type": "comptime",
-            "named": false
-          },
-          {
-            "type": "continue",
-            "named": false
-          },
-          {
-            "type": "nosuspend",
-            "named": false
-          },
-          {
-            "type": "resume",
-            "named": false
-          },
-          {
-            "type": "return",
-            "named": false
           }
         ]
       },
@@ -2914,26 +1793,6 @@
           "named": true
         },
         {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
           "type": "ByteAlign",
           "named": true
         },
@@ -2942,11 +1801,7 @@
           "named": true
         },
         {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
+          "type": "Expr",
           "named": true
         },
         {
@@ -2954,15 +1809,7 @@
           "named": true
         },
         {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
           "type": "PrefixTypeOp",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
           "named": true
         }
       ]
@@ -2992,51 +1839,11 @@
       "required": true,
       "types": [
         {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
-          "type": "ErrorUnionExpr",
-          "named": true
-        },
-        {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
+          "type": "Expr",
           "named": true
         },
         {
           "type": "Payload",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
           "named": true
         },
         {
@@ -3052,54 +1859,14 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "AsmExpr",
-          "named": true
-        },
-        {
-          "type": "BinaryExpr",
-          "named": true
-        },
-        {
-          "type": "Block",
-          "named": true
-        },
-        {
-          "type": "BlockLabel",
-          "named": true
-        },
-        {
-          "type": "BreakLabel",
-          "named": true
-        },
-        {
-          "type": "ErrorUnionExpr",
-          "named": true
-        },
-        {
-          "type": "IfExpr",
-          "named": true
-        },
-        {
-          "type": "InitList",
-          "named": true
-        },
-        {
-          "type": "LoopExpr",
-          "named": true
-        },
-        {
-          "type": "PrefixTypeOp",
+          "type": "Expr",
           "named": true
         },
         {
           "type": "PtrPayload",
-          "named": true
-        },
-        {
-          "type": "UnaryExpr",
           "named": true
         },
         {
